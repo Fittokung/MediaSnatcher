@@ -1,0 +1,23 @@
+{
+  "appId": "com.mediasnatcher.app",
+  "productName": "MediaSnatcher",
+  "directories": {
+    "output": "dist"
+  },
+  "files": [
+    "src/**/*",
+    "package.json"
+  ],
+  "extraResources": [
+    {
+      "from": "bin",
+      "to": "bin",
+      "filter": ["**/*"]
+    }
+  ],
+  "win": {
+    "target": "dir",
+    "verifyUpdateCodeSignature": false
+  },
+  "cscLink": null
+}
