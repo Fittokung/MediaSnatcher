@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaSnatcher - Universal Video & Audio Downloader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="background-globes">
+    <div class="globe globe-1"></div>
+    <div class="globe globe-2"></div>
+    <div class="globe globe-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3V15M12 15L7 10M12 15L17 10" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 17V18C3 19.6569 4.34315 21 6 21H18C19.6569 21 21 19.6569 21 18V17" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38BDF8"/>
+                <stop offset="1" stop-color="#818CF8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">MediaSnatcher</h1>
+          <p class="brand-subtitle">High Quality Video & Audio Extractor</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="platform-tags">
+          <span class="tag tag-yt">YouTube</span>
+          <span class="tag tag-tt">TikTok</span>
+          <span class="tag tag-fb">Facebook</span>
+          <span class="tag tag-ig">Instagram</span>
+          <span class="tag tag-x">X / Twitter</span>
+          <span class="tag tag-vk">VK</span>
+        </div>
+        <button id="btn-update-engine" class="btn-secondary btn-sm" title="Update yt-dlp binary to latest version">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+          Update Engine
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      <!-- URL Input Card -->
+      <section class="card input-card">
+        <div class="input-wrapper">
+          <div class="input-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </div>
+          <input type="text" id="url-input" placeholder="Paste link from YouTube, TikTok, Facebook, Instagram, X..." autocomplete="off">
+          <button id="btn-paste" class="btn-icon" title="Paste from Clipboard">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+          </button>
+          <button id="btn-analyze" class="btn-primary">
+            <span class="btn-text">Analyze Link</span>
+            <span class="spinner hidden"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Alert / Banner Box -->
+      <div id="toast-container" class="toast-container"></div>
+
+      <!-- Preview & Options Card -->
+      <section id="preview-card" class="card preview-card hidden">
+        <div class="preview-grid">
+          <div class="thumbnail-wrapper">
+            <img id="preview-thumb" src="" alt="Video Thumbnail">
+            <span id="preview-duration" class="duration-badge">00:00</span>
+          </div>
+
+          <div class="preview-details">
+            <div class="preview-header">
+              <span id="preview-platform" class="platform-badge">Platform</span>
+              <span id="preview-uploader" class="uploader-name">Uploader Name</span>
+            </div>
+            <h2 id="preview-title" class="media-title">Video Title Goes Here</h2>
+
+            <!-- Format & Quality Selection -->
+            <div class="options-group">
+              <label class="section-label">Select Format & Quality:</label>
+              <div class="format-chips">
+                <label class="chip active">
+                  <input type="radio" name="quality" value="1080p" checked>
+                  <span class="chip-content">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                    1080p Full HD
+                  </span>
+                </label>
+                <label class="chip">
+                  <input type="radio" name="quality" value="720p">
+                  <span class="chip-content">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    720p HD
+                  </span>
+                </label>
+                <label class="chip">
+                  <input type="radio" name="quality" value="480p">
+                  <span class="chip-content">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    480p SD
+                  </span>
+                </label>
+                <label class="chip">
+                  <input type="radio" name="quality" value="mp3">
+                  <span class="chip-content">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    Audio MP3 (320k)
+                  </span>
+                </label>
+                <label class="chip">
+                  <input type="radio" name="quality" value="m4a">
+                  <span class="chip-content">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                    Audio M4A
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Download Location -->
+            <div class="folder-group">
+              <label class="section-label">Save To Directory:</label>
+              <div class="folder-input-wrapper">
+                <input type="text" id="output-dir-input" readonly placeholder="Default Downloads Folder">
+              </div>
+            </div>
+
+            <button id="btn-start-download" class="btn-download">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3v12M12 15l-5-5M12 15l5-5"/><path d="M3 21h18"/></svg>
+              Start Download Now
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-Time Progress Card -->
+      <section id="progress-card" class="card progress-card hidden">
+        <div class="progress-header">
+          <div class="progress-info">
+            <span id="status-badge" class="status-pill status-active">Initializing...</span>
+            <span id="status-message" class="status-text">Connecting to download engine...</span>
+          </div>
+          <span id="progress-percent" class="percent-counter">0%</span>
+        </div>
+
+        <div class="progress-bar-container">
+          <div id="progress-bar-fill" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+
+        <div class="progress-stats">
+          <div class="stat-item">
+            <span class="stat-label">Speed</span>
+            <span id="stat-speed" class="stat-value">-- MiB/s</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">File Size</span>
+            <span id="stat-size" class="stat-value">--</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Time Remaining</span>
+            <span id="stat-eta" class="stat-value">--:--</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Download History Card -->
+      <section class="card history-card">
+        <div class="history-header">
+          <h3 class="history-title">Recent Downloads</h3>
+          <button id="btn-clear-history" class="btn-text">Clear</button>
+        </div>
+        <div id="history-list" class="history-list">
+          <div class="empty-history">No download history yet. Paste a link above to get started!</div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>MediaSnatcher &bull; Powered by yt-dlp & ffmpeg &bull; Designed for Personal Use</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
